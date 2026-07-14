@@ -3,6 +3,8 @@
 	<gresource prefix="/io/github/VardanHeroic/solarbg_gtk/js">
 		<file>main.js</file>
 		<file>Application.js</file>
+		<file>Window.js</file>
+		<file>WelcomeWidget.js</file>
 	</gresource>
 </gresources>
 

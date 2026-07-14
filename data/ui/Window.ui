@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+	<template class="SolarbgWindow">
+		<property name="child">
+			<object class="SolarbgWelcomeWidget">
+				<property name="margin-top">36</property>
+				<property name="margin-bottom">36</property>
+				<property name="margin-start">36</property>
+				<property name="margin-end">36</property>
+				<property name="valign">center</property>
+			</object>
+		</property>
+	</template>
+</interface>
+
