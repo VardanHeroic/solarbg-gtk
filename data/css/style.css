@@ -1,0 +1,9 @@
+theme_entry {
+	margin: 36px;
+	border-spacing: 18px;
+}
+
+theme_entry.big>label {
+	font-size: 4em;
+	font-weight: bold;
+}

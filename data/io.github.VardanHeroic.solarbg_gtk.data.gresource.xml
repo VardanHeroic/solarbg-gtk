@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
 	<gresource prefix="/io/github/VardanHeroic/solarbg_gtk">
-	<file>ui/WelcomeWidget.ui</file>
-	<file>ui/Window.ui</file>
+		<file>ui/WelcomeWidget.ui</file>
+		<file>ui/Window.ui</file>
+		<file>css/style.css</file>
 	</gresource>
 </gresources>
 

@@ -1,31 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-<template class="SolarbgWelcomeWidget">
-	<property name="layout-manager">
-		<object class="GtkBoxLayout">
-			<property name="orientation">horizontal</property>
-			<property name="spacing">18</property>
-		</object>
-	</property>
-	<child>
-		<object class="GtkImage">
-			<property name="icon-name">system-file-manager-symbolic</property>
-			<property name="icon-size">large</property>
-		</object>
-	</child>
-	<child>
-		<object class="GtkLabel">
-			<property name="label">Welcome to our new file browser!</property>
-			<property name="wrap">true</property>
-			<property name="justify">center</property>
-		</object>
-	</child>
-	<child>
-		<object class="GtkButton">
-			<property name="label">Let's go!</property>
-			<property name="halign">end</property>
-		</object>
-	</child>
-</template>
+	<template class="SolarbgWelcomeWidget">
+		<property name="layout-manager">
+			<object class="GtkBoxLayout">
+				<property name="orientation">horizontal</property>
+				<property name="spacing">18</property>
+			</object>
+		</property>
+		<child>
+			<object class="GtkImage">
+				<property name="icon-name">system-file-manager-symbolic</property>
+				<property name="icon-size">large</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkLabel">
+				<property name="label" bind-source="SolarbgWelcomeWidget" bind-property="file-name"
+					bind-flags="sync-create">Welcome to our new file browser!</property>
+				<property name="wrap">true</property>
+				<property name="justify">center</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkEntry">
+				<property name="buffer">
+					<object class="GtkEntryBuffer">
+						<property name="text">69</property>
+					</object>
+				</property>
+				<property name="input-purpose">GTK_INPUT_PURPOSE_NUMBER</property>
+				<property name="halign">end</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkButton">
+				<property name="label">eh</property>
+				<signal name="clicked" handler="onEditCancel" />
+			</object>
+		</child>
+	</template>
 </interface>
 
