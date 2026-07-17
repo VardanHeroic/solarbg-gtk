@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-	<template class="SolarbgWelcomeWidget">
+	<template class="ThemeEntry">
 		<property name="layout-manager">
 			<object class="GtkBoxLayout">
 				<property name="orientation">horizontal</property>
@@ -15,7 +15,7 @@
 		</child>
 		<child>
 			<object class="GtkLabel">
-				<property name="label" bind-source="SolarbgWelcomeWidget" bind-property="file-name"
+				<property name="label" bind-source="ThemeEntry" bind-property="file-name"
 					bind-flags="sync-create">Welcome to our new file browser!</property>
 				<property name="wrap">true</property>
 				<property name="justify">center</property>
@@ -35,7 +35,9 @@
 		<child>
 			<object class="GtkButton">
 				<property name="label">eh</property>
-				<signal name="clicked" handler="onEditCancel" />
+				<!-- <signal name="clicked" handler="onEditCancel" /> -->
+				<property name="action-name">win.change-view</property>
+				<property name="action-target">'home'</property>
 			</object>
 		</child>
 	</template>

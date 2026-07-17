@@ -1,5 +1,7 @@
 import GObject from "gi://GObject"
 import Gtk from "gi://Gtk"
+import Gio from "gi://Gio"
+import GLib from "gi://GLib"
 
 export const Window = GObject.registerClass(
 	{
@@ -8,12 +10,33 @@ export const Window = GObject.registerClass(
 		InternalChildren: ["stack"],
 	},
 	class extends Gtk.ApplicationWindow {
+		constructor(params = {}) {
+			super(params)
+			this.#setupActions()
+		}
+
 		vfunc_close_request() {
 			super.vfunc_close_request()
 			this.run_dispose()
 		}
-		gotoHome(_widget) {
-			this._stack.visibleChildName = "home"
+		// gotoHome(_widget) {
+		// 	this._stack.visibleChildName = "home"
+		// }
+		#setupActions() {
+			// Create the action
+			const changeViewAction = new Gio.SimpleAction({
+				name: "change-view",
+				parameterType: GLib.VariantType.new("s"),
+			})
+
+			// Connect to the activate signal to run the callback
+			changeViewAction.connect("activate", (_action, params) => {
+				// console.log(params)
+				this._stack.visibleChildName = params.unpack()
+			})
+
+			// Add the action to the window
+			this.add_action(changeViewAction)
 		}
 	},
 )

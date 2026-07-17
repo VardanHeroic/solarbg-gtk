@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+	<template class="ThemeEntry">
+		<property name="layout-manager">
+			<object class="GtkBoxLayout">
+				<property name="orientation">horizontal</property>
+				<property name="spacing">18</property>
+			</object>
+		</property>
+	</template>
+</interface>

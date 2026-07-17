@@ -2,7 +2,8 @@ import Gtk from "gi://Gtk"
 import Gdk from "gi://Gdk"
 import GObject from "gi://GObject"
 import { Window } from "./Window.js"
-import "./WelcomeWidget.js"
+import "./ThemeEntry.js"
+import "./HomePage.js"
 
 export const SolarbgApplication = GObject.registerClass(
 	{

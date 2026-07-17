@@ -1,14 +1,14 @@
 import GObject from "gi://GObject"
 import Gtk from "gi://Gtk"
 
-export const WelcomeWidget = GObject.registerClass(
+export const ThemeEntry = GObject.registerClass(
 	{
-		GTypeName: "SolarbgWelcomeWidget",
+		GTypeName: "ThemeEntry",
 		CssName: "theme_entry",
-		Signals: {
-			"edit-cancel": {},
-		},
-		Template: "resource:///io/github/VardanHeroic/solarbg_gtk/ui/WelcomeWidget.ui",
+		// Signals: {
+		// 	"edit-cancel": {},
+		// },
+		Template: "resource:///io/github/VardanHeroic/solarbg_gtk/ui/ThemeEntry.ui",
 		Properties: {
 			FileName: GObject.ParamSpec.string("file-name", "File Name", "The name of the image file", GObject.ParamFlags.READWRITE, ""),
 			StartAltitude: GObject.ParamSpec.double(
@@ -32,8 +32,8 @@ export const WelcomeWidget = GObject.registerClass(
 		},
 	},
 	class extends Gtk.Widget {
-		onEditCancel(_button) {
-			this.emit("edit-cancel")
-		}
+		// onEditCancel(_button) {
+		// 	this.emit("edit-cancel")
+		// }
 	},
 )

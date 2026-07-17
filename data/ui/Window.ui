@@ -7,12 +7,12 @@
 					<object class="GtkStackPage">
 						<property name="name">edit</property>
 						<property name="child">
-							<object class="SolarbgWelcomeWidget">
+							<object class="ThemeEntry">
 								<!-- <style> -->
 								<!-- <class name="big"/> -->
 								<!-- </style> -->
 								<property name="file-name">hambal</property>
-								<signal name="edit-cancel" handler="gotoHome" />
+								<!-- <signal name="edit-cancel" handler="gotoHome" /> -->
 							</object>
 						</property>
 					</object>
@@ -21,9 +21,7 @@
 					<object class="GtkStackPage">
 						<property name="name">home</property>
 						<property name="child">
-							<object class="GtkButton">
-								<property name="label">anasun</property>
-							</object>
+							<object class="HomePage"></object>
 						</property>
 					</object>
 				</child>
