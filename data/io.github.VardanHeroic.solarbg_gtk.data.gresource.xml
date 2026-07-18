@@ -4,6 +4,7 @@
 		<file>ui/ThemeEntry.ui</file>
 		<file>ui/Window.ui</file>
 		<file>ui/HomePage.ui</file>
+		<file>ui/Theme.ui</file>
 		<file>css/style.css</file>
 	</gresource>
 </gresources>

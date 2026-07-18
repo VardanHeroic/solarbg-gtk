@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+	<template class="GtkListItem">
+		<property name="child">
+			<object class="GtkBox">
+				<property name="orientation">horizontal</property>
+				<property name="spacing">18</property>
+				<child>
+					<object class="GtkButton">
+						<property name="action-name">win.change-view</property>
+						<property name="action-target">'edit'</property>
+						<!-- <property name="label" bind-source="Theme" bind-property="theme-json" -->
+						<!-- bind-flags="sync-create"></property> -->
+						<binding name="label">
+							<lookup name="theme-json" type="Theme">
+								<lookup name="item">GtkListItem</lookup>
+							</lookup>
+						</binding>
+					</object>
+				</child>
+			</object>
+		</property>
+	</template>
+</interface>

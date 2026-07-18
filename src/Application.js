@@ -4,6 +4,7 @@ import GObject from "gi://GObject"
 import { Window } from "./Window.js"
 import "./ThemeEntry.js"
 import "./HomePage.js"
+import "./Theme.js"
 
 export const SolarbgApplication = GObject.registerClass(
 	{
