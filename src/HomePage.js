@@ -19,7 +19,11 @@ export const HomePage = GObject.registerClass(
 	class extends Gtk.Widget {
 		constructor(params = {}) {
 			super(params)
+			// try {
 			this.#findThemes()
+			// } catch (error) {
+			// console.error(error)
+			// }
 
 			// onEditCancel(_button) {
 			// 	this.emit("edit-cancel")
@@ -51,12 +55,25 @@ export const HomePage = GObject.registerClass(
 
 			// Iterate over the enumerator and add each child to the list store
 			let fileInfo
+			let contentsString
 			while ((fileInfo = children.next_file(null))) {
-				console.log(fileInfo.get_display_name())
-
+				// console.log(fileInfo.get_content_type())
+				if (fileInfo.get_content_type() === "inode/directory") {
+					const path = GLib.build_filenamev([
+						GLib.get_home_dir(),
+						"/.local/share/solarbg/themes/",
+						fileInfo.get_display_name(),
+						"/theme.json",
+					])
+					const themeJSONfile = Gio.File.new_for_path(path)
+					const [_, contents, __] = themeJSONfile.load_contents(null)
+					const decoder = new TextDecoder("utf-8")
+					// console.log(contents)
+					contentsString = decoder.decode(contents)
+				}
 				this.themes.append(
 					new Theme({
-						"theme-json": fileInfo.get_display_name(),
+						"theme-json": contentsString ?? fileInfo.get_display_name(),
 					}),
 				)
 			}
