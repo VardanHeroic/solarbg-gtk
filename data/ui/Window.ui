@@ -25,7 +25,7 @@
 						</property>
 					</object>
 				</child>
-				<property name="visible-child-name">edit</property>
+				<property name="visible-child-name">home</property>
 			</object>
 		</property>
 	</template>

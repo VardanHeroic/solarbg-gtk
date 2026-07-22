@@ -2,21 +2,23 @@
 <interface>
 	<template class="HomePage">
 		<property name="layout-manager">
-			<object class="GtkBoxLayout">
-				<property name="orientation">horizontal</property>
-				<property name="spacing">18</property>
+		<object class="GtkGridLayout">
+		<property name="column-homogeneous">true</property>
+		<!-- <property name="column-spaceing">true</property> -->
+<property name="row-homogeneous">true</property>
+				<!-- <property name="orientation">horizontal</property> -->
+				<!-- <property name="spacing">18</property> -->
 			</object>
 		</property>
 
 		<child>
 			<object class="GtkScrolledWindow">
 				<property name="child">
-					<object class="GtkListView">
+					<object class="GtkGridView">
 						<property name="enable-rubberband">true</property>
 						<property name="model">
 							<object class="GtkMultiSelection">
-								<property name="model" bind-source="HomePage"
-									bind-property="themes" />
+								<property name="model" bind-source="HomePage" bind-property="themes" />
 							</object>
 						</property>
 						<property name="factory">
