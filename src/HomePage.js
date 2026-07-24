@@ -19,61 +19,63 @@ export const HomePage = GObject.registerClass(
 	class extends Gtk.Widget {
 		constructor(params = {}) {
 			super(params)
-			// try {
-			this.#findThemes()
-			// } catch (error) {
-			// console.error(error)
-			// }
-
-			// onEditCancel(_button) {
-			// 	this.emit("edit-cancel")
-			// }
-			// const label = new Gtk.Label({ label: "sdalkj;f" })
-			// this.append(label)
-			// for (let index = 0; index < 5; index++) {
-			// const button = new Gtk.Button({
-			// 	label: index.toString(),
-			// })
-			// button.connect("clicked", () => {
-			// 	button.activate_action("win.change-view", new GLib.Variant("s", "edit"))
-			// })
-			// button.set_action_name = "win.change-view"
-			// button.set_action_target = "edit"
-			// this.append(button)
-			// }
+			this.initialize().catch(logError)
 		}
 
-		#findThemes() {
+		async initialize() {
+			await this.findThemes()
+		}
+
+		async findThemes() {
+			function isTimeStamp(obj) {
+				return (
+					typeof obj === "object" &&
+					obj !== null &&
+					typeof obj.path === "string" &&
+					typeof obj.start === "number" &&
+					typeof obj.end === "number"
+				)
+			}
+
 			// Create the Gio.ListStore that will contain File objects
 			this.themes = Gio.ListStore.new(Theme)
 
-			const filepath = GLib.build_filenamev([GLib.get_home_dir(), "/.local/share/solarbg/themes"])
-			const currentDir = Gio.File.new_for_path(filepath)
+			const themesPath = GLib.build_filenamev([GLib.get_home_dir(), "/.local/share/solarbg/themes"])
+			const themesDir = Gio.File.new_for_path(themesPath)
 
+			const decoder = new TextDecoder("utf-8")
 			// Get an enumerator of all children
-			const children = currentDir.enumerate_children("standard::*", Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null)
+			const children = themesDir.enumerate_children("standard::*", Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null)
 
 			// Iterate over the enumerator and add each child to the list store
 			let fileInfo
 			let contentsString
+			let thumbnail
+			// turn above vars into object later please
 			while ((fileInfo = children.next_file(null))) {
-				// console.log(fileInfo.get_content_type())
 				if (fileInfo.get_content_type() === "inode/directory") {
-					const path = GLib.build_filenamev([
-						GLib.get_home_dir(),
-						"/.local/share/solarbg/themes/",
-						fileInfo.get_display_name(),
-						"/theme.json",
-					])
+					const path = GLib.build_filenamev([themesPath, fileInfo.get_display_name(), "/theme.json"])
 					const themeJSONfile = Gio.File.new_for_path(path)
-					const [_, contents, __] = themeJSONfile.load_contents(null)
-					const decoder = new TextDecoder("utf-8")
-					// console.log(contents)
-					contentsString = decoder.decode(contents)
+
+					try {
+						const [contents, __] = await themeJSONfile.load_contents_async(null) // console.log(contents)
+						contentsString = decoder.decode(contents)
+						const themeArray = JSON.parse(contentsString)
+						if (!themeArray.every(isTimeStamp)) {
+							throw new Error("file is not a solar theme")
+						}
+						thumbnail = themeArray[0].path
+					} catch (error) {
+						console.warn(`(tried to read ${path}) ${error}`)
+						continue
+					}
 				}
 				this.themes.append(
 					new Theme({
 						"theme-json": contentsString ?? fileInfo.get_display_name(),
+						"theme-name": fileInfo.get_display_name(),
+						"theme-solar": fileInfo.get_content_type() === "inode/directory",
+						"theme-thumbnail": GLib.build_filenamev([themesPath, fileInfo.get_display_name(), thumbnail]),
 					}),
 				)
 			}

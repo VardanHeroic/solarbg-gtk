@@ -1,10 +1,13 @@
 import Gtk from "gi://Gtk"
 import Gdk from "gi://Gdk"
 import GObject from "gi://GObject"
+import Gio from "gi://Gio"
 import { Window } from "./Window.js"
 import "./ThemeEntry.js"
 import "./HomePage.js"
 import "./Theme.js"
+
+Gio._promisify(Gio.File.prototype, "load_contents_async", "load_contents_finish")
 
 export const SolarbgApplication = GObject.registerClass(
 	{
