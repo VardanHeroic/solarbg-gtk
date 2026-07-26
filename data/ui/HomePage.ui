@@ -2,12 +2,9 @@
 <interface>
 	<template class="HomePage">
 		<property name="layout-manager">
-		<object class="GtkGridLayout">
-		<property name="column-homogeneous">true</property>
-		<!-- <property name="column-spaceing">true</property> -->
-<property name="row-homogeneous">true</property>
-				<!-- <property name="orientation">horizontal</property> -->
-				<!-- <property name="spacing">18</property> -->
+			<object class="GtkGridLayout">
+				<property name="column-homogeneous">true</property>
+				<property name="row-homogeneous">true</property>
 			</object>
 		</property>
 

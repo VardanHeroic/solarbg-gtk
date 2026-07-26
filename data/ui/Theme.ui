@@ -26,8 +26,12 @@
 				</child>
 				<child>
 					<object class="GtkButton">
-						<property name="action-name">win.change-view</property>
-						<property name="action-target">'edit'</property>
+						<property name="action-name">win.begin-edit</property>
+						<binding name="action-target">
+							<lookup name="theme-json" type="Theme">
+								<lookup name="item">GtkListItem</lookup>
+							</lookup>
+						</binding>
 						<property name="label">Edit</property>
 					</object>
 				</child>

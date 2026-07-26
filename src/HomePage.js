@@ -53,6 +53,8 @@ export const HomePage = GObject.registerClass(
 			let thumbnail
 			// turn above vars into object later please
 			while ((fileInfo = children.next_file(null))) {
+				// switch (fileInfo.get_content_type()) {
+				// case "inode/directory":
 				if (fileInfo.get_content_type() === "inode/directory") {
 					const path = GLib.build_filenamev([themesPath, fileInfo.get_display_name(), "/theme.json"])
 					const themeJSONfile = Gio.File.new_for_path(path)
@@ -65,19 +67,26 @@ export const HomePage = GObject.registerClass(
 							throw new Error("file is not a solar theme")
 						}
 						thumbnail = themeArray[0].path
+						console.log(typeof contentsString)
 					} catch (error) {
 						console.warn(`(tried to read ${path}) ${error}`)
 						continue
 					}
+					console.log("lox", path)
+					this.themes.append(
+						new Theme({
+							"theme-json": new GLib.Variant("s", contentsString),
+							"theme-name": fileInfo.get_display_name(),
+							"theme-solar": fileInfo.get_content_type() === "inode/directory",
+							"theme-thumbnail": GLib.build_filenamev([themesPath, fileInfo.get_display_name(), thumbnail]),
+						}),
+					)
+
+					// break
+					// case "application/xml":
+					// default:
+					// continue
 				}
-				this.themes.append(
-					new Theme({
-						"theme-json": contentsString ?? fileInfo.get_display_name(),
-						"theme-name": fileInfo.get_display_name(),
-						"theme-solar": fileInfo.get_content_type() === "inode/directory",
-						"theme-thumbnail": GLib.build_filenamev([themesPath, fileInfo.get_display_name(), thumbnail]),
-					}),
-				)
 			}
 		}
 	},

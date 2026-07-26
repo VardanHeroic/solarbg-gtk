@@ -8,7 +8,13 @@ export const Theme = GObject.registerClass(
 		CssName: "theme",
 		// Template: "resource:///io/github/VardanHeroic/solarbg_gtk/ui/Theme.ui",
 		Properties: {
-			ThemeJSON: GObject.ParamSpec.string("theme-json", "Theme JSON", "The JSON of the theme", GObject.ParamFlags.READWRITE, ""),
+			ThemeJSON: GObject.ParamSpec.boxed(
+				"theme-json",
+				"Theme JSON",
+				"The JSON of the theme",
+				GObject.type_from_name("GVariant"),
+				GObject.ParamFlags.READWRITE,
+			),
 			ThemeName: GObject.ParamSpec.string("theme-name", "Theme Name", "The name of the theme", GObject.ParamFlags.READWRITE, ""),
 			ThemeSolar: GObject.ParamSpec.boolean("theme-solar", "Theme Solar", "Is theme solar", GObject.ParamFlags.READWRITE, null),
 			ThemeThumbnail: GObject.ParamSpec.string(

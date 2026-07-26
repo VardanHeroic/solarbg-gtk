@@ -28,15 +28,24 @@ export const Window = GObject.registerClass(
 				name: "change-view",
 				parameterType: GLib.VariantType.new("s"),
 			})
-
+			const beginEditAction = new Gio.SimpleAction({
+				name: "begin-edit",
+				parameterType: GLib.VariantType.new("s"),
+			})
 			// Connect to the activate signal to run the callback
 			changeViewAction.connect("activate", (_action, params) => {
 				// console.log(params)
 				this._stack.visibleChildName = params.unpack()
 			})
 
+			beginEditAction.connect("activate", (_action, params) => {
+				console.log(params.unpack())
+				changeViewAction.activate(new GLib.Variant("s", "edit"))
+			})
+
 			// Add the action to the window
 			this.add_action(changeViewAction)
+			this.add_action(beginEditAction)
 		}
 	},
 )

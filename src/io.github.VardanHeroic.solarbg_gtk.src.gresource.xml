@@ -5,6 +5,7 @@
 		<file>Application.js</file>
 		<file>Window.js</file>
 		<file>HomePage.js</file>
+		<file>EditPage.js</file>
 		<file>ThemeEntry.js</file>
 		<file>Theme.js</file>
 	</gresource>
