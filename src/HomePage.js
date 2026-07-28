@@ -67,12 +67,10 @@ export const HomePage = GObject.registerClass(
 							throw new Error("file is not a solar theme")
 						}
 						thumbnail = themeArray[0].path
-						console.log(typeof contentsString)
 					} catch (error) {
 						console.warn(`(tried to read ${path}) ${error}`)
 						continue
 					}
-					console.log("lox", path)
 					this.themes.append(
 						new Theme({
 							"theme-json": new GLib.Variant("s", contentsString),

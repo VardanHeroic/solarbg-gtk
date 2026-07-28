@@ -1,6 +1,6 @@
 import GObject from "gi://GObject"
 import Gtk from "gi://Gtk"
-// import GLib from "gi://GLib"
+import GLib from "gi://GLib"
 
 export const Theme = GObject.registerClass(
 	{
@@ -8,11 +8,12 @@ export const Theme = GObject.registerClass(
 		CssName: "theme",
 		// Template: "resource:///io/github/VardanHeroic/solarbg_gtk/ui/Theme.ui",
 		Properties: {
-			ThemeJSON: GObject.ParamSpec.boxed(
+			ThemeJSON: GObject.param_spec_variant(
 				"theme-json",
 				"Theme JSON",
 				"The JSON of the theme",
-				GObject.type_from_name("GVariant"),
+				new GLib.VariantType("s"),
+				new GLib.Variant("s", ""),
 				GObject.ParamFlags.READWRITE,
 			),
 			ThemeName: GObject.ParamSpec.string("theme-name", "Theme Name", "The name of the theme", GObject.ParamFlags.READWRITE, ""),
