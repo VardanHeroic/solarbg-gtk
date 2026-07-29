@@ -8,10 +8,10 @@ export const Theme = GObject.registerClass(
 		CssName: "theme",
 		// Template: "resource:///io/github/VardanHeroic/solarbg_gtk/ui/Theme.ui",
 		Properties: {
-			ThemeJSON: GObject.param_spec_variant(
-				"theme-json",
-				"Theme JSON",
-				"The JSON of the theme",
+			ThemePath: GObject.param_spec_variant(
+				"theme-path",
+				"Theme Path",
+				"The path of the theme",
 				new GLib.VariantType("s"),
 				new GLib.Variant("s", ""),
 				GObject.ParamFlags.READWRITE,

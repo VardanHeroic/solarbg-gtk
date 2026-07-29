@@ -5,6 +5,7 @@ import Gio from "gi://Gio"
 import { Window } from "./Window.js"
 import "./ThemeEntry.js"
 import "./HomePage.js"
+import "./EditPage.js"
 import "./Theme.js"
 
 Gio._promisify(Gio.File.prototype, "load_contents_async", "load_contents_finish")

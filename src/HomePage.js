@@ -73,7 +73,7 @@ export const HomePage = GObject.registerClass(
 					}
 					this.themes.append(
 						new Theme({
-							"theme-json": new GLib.Variant("s", contentsString),
+							"theme-path": new GLib.Variant("s", path),
 							"theme-name": fileInfo.get_display_name(),
 							"theme-solar": fileInfo.get_content_type() === "inode/directory",
 							"theme-thumbnail": GLib.build_filenamev([themesPath, fileInfo.get_display_name(), thumbnail]),

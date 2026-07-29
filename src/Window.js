@@ -7,7 +7,7 @@ export const Window = GObject.registerClass(
 	{
 		GTypeName: "SolarbgWindow",
 		Template: "resource:///io/github/VardanHeroic/solarbg_gtk/ui/Window.ui",
-		InternalChildren: ["stack"],
+		InternalChildren: ["stack", "edit_page"],
 	},
 	class extends Gtk.ApplicationWindow {
 		constructor(params = {}) {
@@ -19,11 +19,7 @@ export const Window = GObject.registerClass(
 			super.vfunc_close_request()
 			this.run_dispose()
 		}
-		// gotoHome(_widget) {
-		// 	this._stack.visibleChildName = "home"
-		// }
 		#setupActions() {
-			// Create the action
 			const changeViewAction = new Gio.SimpleAction({
 				name: "change-view",
 				parameterType: GLib.VariantType.new("s"),
@@ -32,18 +28,16 @@ export const Window = GObject.registerClass(
 				name: "begin-edit",
 				parameterType: GLib.VariantType.new("s"),
 			})
-			// Connect to the activate signal to run the callback
+
 			changeViewAction.connect("activate", (_action, params) => {
-				// console.log(params)
 				this._stack.visibleChildName = params.unpack()
 			})
 
 			beginEditAction.connect("activate", (_action, params) => {
-				console.log(params.unpack())
+				/*add trycatch later*/ this._edit_page.createEntryList(params.unpack())
 				changeViewAction.activate(new GLib.Variant("s", "edit"))
 			})
 
-			// Add the action to the window
 			this.add_action(changeViewAction)
 			this.add_action(beginEditAction)
 		}

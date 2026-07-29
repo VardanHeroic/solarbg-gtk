@@ -15,7 +15,7 @@
 						<property name="enable-rubberband">true</property>
 						<property name="model">
 							<object class="GtkMultiSelection">
-								<property name="model" bind-source="EditPage" bind-property="themes" />
+								<property name="model" bind-source="EditPage" bind-property="themeentries" />
 							</object>
 						</property>
 						<property name="factory">
@@ -26,6 +26,7 @@
 					</object>
 				</property>
 			</object>
+			<!-- <object class="GtkLabel"><property name="label">lal</property></object> -->
 		</child>
 	</template>
 </interface>

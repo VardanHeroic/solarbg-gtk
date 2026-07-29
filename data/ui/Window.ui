@@ -7,13 +7,14 @@
 					<object class="GtkStackPage">
 						<property name="name">edit</property>
 						<property name="child">
-							<object class="ThemeEntry">
-								<!-- <style> -->
-								<!-- <class name="big"/> -->
-								<!-- </style> -->
-								<property name="file-name">hambal</property>
-								<!-- <signal name="edit-cancel" handler="gotoHome" /> -->
-							</object>
+							<!-- <object class="ThemeEntry"> -->
+							<!-- 	<style> -->
+							<!-- 	<class name="big"/> -->
+							<!-- 	</style> -->
+							<!-- 	<property name="file-name">hambal</property> -->
+							<!-- 	<signal name="edit-cancel" handler="gotoHome" /> -->
+							<!-- </object> -->
+							<object class="EditPage" id="edit_page"></object>
 						</property>
 					</object>
 				</child>
@@ -21,7 +22,7 @@
 					<object class="GtkStackPage">
 						<property name="name">home</property>
 						<property name="child">
-							<object class="HomePage"></object>
+							<object class="HomePage" id="home_page"></object>
 						</property>
 					</object>
 				</child>

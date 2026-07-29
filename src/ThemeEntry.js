@@ -8,7 +8,7 @@ export const ThemeEntry = GObject.registerClass(
 		// Signals: {
 		// 	"edit-cancel": {},
 		// },
-		Template: "resource:///io/github/VardanHeroic/solarbg_gtk/ui/ThemeEntry.ui",
+		// Template: "resource:///io/github/VardanHeroic/solarbg_gtk/ui/ThemeEntry.ui",
 		Properties: {
 			FileName: GObject.ParamSpec.string("file-name", "File Name", "The name of the image file", GObject.ParamFlags.READWRITE, ""),
 			StartAltitude: GObject.ParamSpec.double(

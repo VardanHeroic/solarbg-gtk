@@ -28,7 +28,7 @@
 					<object class="GtkButton">
 						<property name="action-name">win.begin-edit</property>
 						<binding name="action-target">
-							<lookup name="theme-json" type="Theme">
+							<lookup name="theme-path" type="Theme">
 								<lookup name="item">GtkListItem</lookup>
 							</lookup>
 						</binding>

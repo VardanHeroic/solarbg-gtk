@@ -1,45 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-	<template class="ThemeEntry">
-		<property name="layout-manager">
-			<object class="GtkBoxLayout">
+	<template class="GtkListItem">
+		<property name="child">
+			<object class="GtkBox">
 				<property name="orientation">horizontal</property>
 				<property name="spacing">18</property>
+				<child>
+					<object class="GtkImage">
+						<property name="icon-name">system-file-manager-symbolic</property>
+						<property name="icon-size">large</property>
+					</object>
+				</child>
+				<child>
+					<object class="GtkLabel">
+						<!-- <property name="label" bind-source="ThemeEntry"
+						bind-property="file-name" -->
+						<!-- bind-flags="sync-create">Welcome to our new file browser!</property> -->
+
+						<binding name="label">
+							<lookup name="file-name" type="ThemeEntry">
+								<lookup name="item">GtkListItem</lookup>
+							</lookup>
+						</binding>
+						<property name="wrap">true</property>
+						<property name="justify">center</property>
+					</object>
+				</child>
+				<child>
+					<object class="GtkEntry">
+						<property name="buffer">
+							<object class="GtkEntryBuffer">
+								<binding name="text">
+									<lookup name="start" type="ThemeEntry">
+										<lookup name="item">GtkListItem</lookup>
+									</lookup>
+								</binding>
+							</object>
+						</property>
+						<property name="input-purpose">GTK_INPUT_PURPOSE_NUMBER</property>
+						<property name="halign">end</property>
+					</object>
+				</child>
+				<child>
+					<object class="GtkEntry">
+						<property name="buffer">
+							<object class="GtkEntryBuffer">
+								<binding name="text">
+									<lookup name="end" type="ThemeEntry">
+										<lookup name="item">GtkListItem</lookup>
+									</lookup>
+								</binding>
+							</object>
+						</property>
+						<property name="input-purpose">GTK_INPUT_PURPOSE_NUMBER</property>
+						<property name="halign">end</property>
+					</object>
+				</child>
+				<child>
+					<object class="GtkButton">
+						<property name="label">eh</property>
+						<!-- <signal name="clicked" handler="onEditCancel" /> -->
+						<property name="action-name">win.change-view</property>
+						<property name="action-target">'home'</property>
+					</object>
+				</child>
 			</object>
 		</property>
-		<child>
-			<object class="GtkImage">
-				<property name="icon-name">system-file-manager-symbolic</property>
-				<property name="icon-size">large</property>
-			</object>
-		</child>
-		<child>
-			<object class="GtkLabel">
-				<property name="label" bind-source="ThemeEntry" bind-property="file-name"
-					bind-flags="sync-create">Welcome to our new file browser!</property>
-				<property name="wrap">true</property>
-				<property name="justify">center</property>
-			</object>
-		</child>
-		<child>
-			<object class="GtkEntry">
-				<property name="buffer">
-					<object class="GtkEntryBuffer">
-						<property name="text">69</property>
-					</object>
-				</property>
-				<property name="input-purpose">GTK_INPUT_PURPOSE_NUMBER</property>
-				<property name="halign">end</property>
-			</object>
-		</child>
-		<child>
-			<object class="GtkButton">
-				<property name="label">eh</property>
-				<!-- <signal name="clicked" handler="onEditCancel" /> -->
-				<property name="action-name">win.change-view</property>
-				<property name="action-target">'home'</property>
-			</object>
-		</child>
+		<!-- <property name="layout-manager"> -->
+		<!-- 	<object class="GtkBoxLayout"> -->
+		<!-- 		<property name="orientation">horizontal</property> -->
+		<!-- 		<property name="spacing">18</property> -->
+		<!-- 	</object> -->
+		<!-- </property> -->
 	</template>
 </interface>
 
