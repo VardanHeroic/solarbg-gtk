@@ -2,6 +2,7 @@
 <gresources>
 	<gresource prefix="/io/github/VardanHeroic/solarbg_gtk/js">
 		<file>main.js</file>
+		<file>utils.js</file>
 		<file>Application.js</file>
 		<file>Window.js</file>
 		<file>HomePage.js</file>

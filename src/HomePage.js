@@ -3,6 +3,7 @@ import Gtk from "gi://Gtk"
 import Gio from "gi://Gio"
 import { Theme } from "./Theme.js"
 import GLib from "gi://GLib"
+import { isTimeStamp } from "./utils.js"
 
 export const HomePage = GObject.registerClass(
 	{
@@ -27,16 +28,6 @@ export const HomePage = GObject.registerClass(
 		}
 
 		async findThemes() {
-			function isTimeStamp(obj) {
-				return (
-					typeof obj === "object" &&
-					obj !== null &&
-					typeof obj.path === "string" &&
-					typeof obj.start === "number" &&
-					typeof obj.end === "number"
-				)
-			}
-
 			// Create the Gio.ListStore that will contain File objects
 			this.themes = Gio.ListStore.new(Theme)
 

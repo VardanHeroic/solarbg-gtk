@@ -2,7 +2,8 @@ import GObject from "gi://GObject"
 import Gtk from "gi://Gtk"
 import Gio from "gi://Gio"
 import { ThemeEntry } from "./ThemeEntry.js"
-import GLib from "gi://GLib"
+import { isTimeStamp } from "./utils.js"
+// import GLib from "gi://GLib"
 
 export const EditPage = GObject.registerClass(
 	{
@@ -30,13 +31,28 @@ export const EditPage = GObject.registerClass(
 
 		async createEntryList(path) {
 			this.themeentries = Gio.ListStore.new(ThemeEntry)
-			this.themeentries.append(
-				new ThemeEntry({
-					"file-name": path,
-					start: 14,
-					end: 88,
-				}),
-			)
+			const themeJSONfile = Gio.File.new_for_path(path)
+			const decoder = new TextDecoder("utf-8")
+			let themePath = path.split("/")
+			themePath.pop()
+			themePath = themePath.join("/")
+
+			try {
+				const [contents, __] = await themeJSONfile.load_contents_async(null) // console.log(contents)
+				const themeArray = JSON.parse(decoder.decode(contents))
+				if (!themeArray.every(isTimeStamp)) {
+					throw new Error("file is not a solar theme")
+				}
+				console.log(themePath)
+				themeArray.forEach(entry => {
+					// console.log(path, start, end)
+
+					this.themeentries.append(new ThemeEntry({ "file-name": themePath + "/" + entry.path, ...entry }))
+				})
+			} catch (error) {
+				console.warn(`(tried to read ${path}) ${error}`)
+				throw error
+			}
 		}
 	},
 )

@@ -5,12 +5,10 @@ export const ThemeEntry = GObject.registerClass(
 	{
 		GTypeName: "ThemeEntry",
 		CssName: "theme_entry",
-		// Signals: {
-		// 	"edit-cancel": {},
-		// },
-		// Template: "resource:///io/github/VardanHeroic/solarbg_gtk/ui/ThemeEntry.ui",
+		// path and filename are swapped, its confusing but makes code simples because in theme file the key of filename is named path
 		Properties: {
-			FileName: GObject.ParamSpec.string("file-name", "File Name", "The name of the image file", GObject.ParamFlags.READWRITE, ""),
+			Path: GObject.ParamSpec.string("path", "Path", "The name of the image file", GObject.ParamFlags.READWRITE, ""),
+			FileName: GObject.ParamSpec.string("file-name", "File Name", "The path of the image file", GObject.ParamFlags.READWRITE, ""),
 			StartAltitude: GObject.ParamSpec.double(
 				"start",
 				"start-altitude",

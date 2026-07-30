@@ -2,7 +2,8 @@
 <interface>
 	<template class="EditPage">
 		<property name="layout-manager">
-			<object class="GtkBinLayout">
+			<object class="GtkBoxLayout">
+				<property name="orientation">vertical</property>
 				<!-- <property name="column-homogeneous">true</property> -->
 				<!-- <property name="row-homogeneous">true</property> -->
 			</object>
@@ -10,12 +11,14 @@
 
 		<child>
 			<object class="GtkScrolledWindow">
+				<property name="vexpand">true</property>
 				<property name="child">
 					<object class="GtkListView">
 						<property name="enable-rubberband">true</property>
 						<property name="model">
 							<object class="GtkMultiSelection">
-								<property name="model" bind-source="EditPage" bind-property="themeentries" />
+								<property name="model" bind-source="EditPage"
+									bind-property="themeentries" />
 							</object>
 						</property>
 						<property name="factory">
@@ -25,8 +28,20 @@
 						</property>
 					</object>
 				</property>
+
 			</object>
-			<!-- <object class="GtkLabel"><property name="label">lal</property></object> -->
+			<!-- <object class="GtkLabel"> -->
+			<!-- 	<property name="label">lal</property> -->
+			<!-- </object> -->
 		</child>
+		<child>
+			<object class="GtkButton">
+				<property name="label">Cancel</property>
+				<!-- <signal name="clicked" handler="onEditCancel" /> -->
+				<property name="action-name">win.change-view</property>
+				<property name="action-target">'home'</property>
+			</object>
+		</child>
+
 	</template>
 </interface>

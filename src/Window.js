@@ -33,9 +33,14 @@ export const Window = GObject.registerClass(
 				this._stack.visibleChildName = params.unpack()
 			})
 
-			beginEditAction.connect("activate", (_action, params) => {
-				/*add trycatch later*/ this._edit_page.createEntryList(params.unpack())
-				changeViewAction.activate(new GLib.Variant("s", "edit"))
+			beginEditAction.connect("activate", async (_action, params) => {
+				try {
+					await this._edit_page.createEntryList(params.unpack())
+					changeViewAction.activate(new GLib.Variant("s", "edit"))
+				} catch (error) {
+					console.warn(error)
+					// return
+				}
 			})
 
 			this.add_action(changeViewAction)

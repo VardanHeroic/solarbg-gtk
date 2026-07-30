@@ -7,8 +7,13 @@
 				<property name="spacing">18</property>
 				<child>
 					<object class="GtkImage">
-						<property name="icon-name">system-file-manager-symbolic</property>
-						<property name="icon-size">large</property>
+						<binding name="file">
+							<lookup name="file-name" type="ThemeEntry">
+								<lookup name="item">GtkListItem</lookup>
+							</lookup>
+						</binding>
+						<property name="pixel-size">200</property>
+
 					</object>
 				</child>
 				<child>
@@ -18,7 +23,7 @@
 						<!-- bind-flags="sync-create">Welcome to our new file browser!</property> -->
 
 						<binding name="label">
-							<lookup name="file-name" type="ThemeEntry">
+							<lookup name="path" type="ThemeEntry">
 								<lookup name="item">GtkListItem</lookup>
 							</lookup>
 						</binding>
