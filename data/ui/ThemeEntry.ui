@@ -8,7 +8,7 @@
 				<child>
 					<object class="GtkImage">
 						<binding name="file">
-							<lookup name="file-name" type="ThemeEntry">
+							<lookup name="path" type="ThemeEntry">
 								<lookup name="item">GtkListItem</lookup>
 							</lookup>
 						</binding>
@@ -23,7 +23,7 @@
 						<!-- bind-flags="sync-create">Welcome to our new file browser!</property> -->
 
 						<binding name="label">
-							<lookup name="path" type="ThemeEntry">
+							<lookup name="file-name" type="ThemeEntry">
 								<lookup name="item">GtkListItem</lookup>
 							</lookup>
 						</binding>
@@ -62,21 +62,21 @@
 					</object>
 				</child>
 				<child>
-					<object class="GtkButton">
-						<property name="label">eh</property>
-						<!-- <signal name="clicked" handler="onEditCancel" /> -->
-						<property name="action-name">win.change-view</property>
-						<property name="action-target">'home'</property>
+					<object class="GtkButton" id="delete_button">
+						<!-- <property name="label"></property> -->
+						<!-- <signal name="clicked" handler="onEntryRemoval" /> -->
+						<property name="child">
+							<object class="GtkImage">
+								<property name="icon-name">edit-delete</property>
+								<property name="icon-size">large</property>
+							</object>
+						</property>
+						<!-- <property name="action-name">win.change-view</property> -->
+						<!-- <property name="action-target">'home'</property> -->
 					</object>
 				</child>
 			</object>
 		</property>
-		<!-- <property name="layout-manager"> -->
-		<!-- 	<object class="GtkBoxLayout"> -->
-		<!-- 		<property name="orientation">horizontal</property> -->
-		<!-- 		<property name="spacing">18</property> -->
-		<!-- 	</object> -->
-		<!-- </property> -->
 	</template>
 </interface>
 

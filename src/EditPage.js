@@ -9,9 +9,6 @@ export const EditPage = GObject.registerClass(
 	{
 		GTypeName: "EditPage",
 		CssName: "edit_page",
-		// Signals: {
-		// 	"edit-cancel": {},
-		// },
 		Template: "resource:///io/github/VardanHeroic/solarbg_gtk/ui/EditPage.ui",
 		Properties: {
 			// ThemePath: GObject.ParamSpec.string("themepath", "ThemePath", "The path of editing theme", GObject.ParamFlags.READWRITE, ""),
@@ -23,11 +20,22 @@ export const EditPage = GObject.registerClass(
 				Gio.ListStore,
 			),
 		},
+		InternalChildren: ["factory"],
 	},
 	class extends Gtk.Widget {
 		constructor(params = {}) {
 			super(params)
 		}
+
+		// deleteEntry(_widget, id) {
+		// 	console.log(id)
+		// }
+		// _init() {
+		// super._init()
+		// }
+		// onFactorySetup(_, listItem) {
+		// 	console.log(listItem.get_child())
+		// }
 
 		async createEntryList(path) {
 			this.themeentries = Gio.ListStore.new(ThemeEntry)
@@ -43,12 +51,18 @@ export const EditPage = GObject.registerClass(
 				if (!themeArray.every(isTimeStamp)) {
 					throw new Error("file is not a solar theme")
 				}
-				console.log(themePath)
-				themeArray.forEach(entry => {
+				// console.log(themePath)
+				themeArray.forEach(({ path, start, end }, i) => {
 					// console.log(path, start, end)
 
-					this.themeentries.append(new ThemeEntry({ "file-name": themePath + "/" + entry.path, ...entry }))
+					this.themeentries.append(
+						new ThemeEntry({ path: themePath + "/" + path, "file-name": path, start: start, end: end, id: i }),
+					)
 				})
+				// this._factory.connect("setup", (_, listItem) => {
+				// 	console.log(listItem.get_child())
+				// })
+				// remove the factory from template move it to here
 			} catch (error) {
 				console.warn(`(tried to read ${path}) ${error}`)
 				throw error

@@ -2,8 +2,7 @@
 <interface>
 	<template class="EditPage">
 		<property name="layout-manager">
-			<object class="GtkBoxLayout">
-				<property name="orientation">vertical</property>
+			<object class="GtkBinLayout">
 				<!-- <property name="column-homogeneous">true</property> -->
 				<!-- <property name="row-homogeneous">true</property> -->
 			</object>
@@ -13,19 +12,36 @@
 			<object class="GtkScrolledWindow">
 				<property name="vexpand">true</property>
 				<property name="child">
-					<object class="GtkListView">
-						<property name="enable-rubberband">true</property>
-						<property name="model">
-							<object class="GtkMultiSelection">
-								<property name="model" bind-source="EditPage"
-									bind-property="themeentries" />
+					<object class="GtkBox">
+						<property name="orientation">vertical</property>
+						<child>
+							<object class="GtkListView">
+								<property name="enable-rubberband">true</property>
+								<property name="model">
+									<object class="GtkMultiSelection">
+										<property name="model" bind-source="EditPage"
+											bind-property="themeentries" />
+									</object>
+								</property>
+								<property name="factory">
+									<object class="GtkBuilderListItemFactory" id="factory">
+										<property name="resource">/io/github/VardanHeroic/solarbg_gtk/ui/ThemeEntry.ui</property>
+										<!-- <signal name="delete-entry" handler="deleteEntry" /> -->
+										<!-- <signal name="setup" handler="on_factory_setup"/> -->
+									</object>
+								</property>
 							</object>
-						</property>
-						<property name="factory">
-							<object class="GtkBuilderListItemFactory">
-								<property name="resource">/io/github/VardanHeroic/solarbg_gtk/ui/ThemeEntry.ui</property>
+
+						</child>
+						<child>
+							<object class="GtkButton">
+								<property name="label">Cancel</property>
+								<!-- <signal name="clicked" handler="onEditCancel" /> -->
+								<property name="action-name">win.change-view</property>
+								<property name="action-target">'home'</property>
 							</object>
-						</property>
+						</child>
+
 					</object>
 				</property>
 
@@ -33,14 +49,6 @@
 			<!-- <object class="GtkLabel"> -->
 			<!-- 	<property name="label">lal</property> -->
 			<!-- </object> -->
-		</child>
-		<child>
-			<object class="GtkButton">
-				<property name="label">Cancel</property>
-				<!-- <signal name="clicked" handler="onEditCancel" /> -->
-				<property name="action-name">win.change-view</property>
-				<property name="action-target">'home'</property>
-			</object>
 		</child>
 
 	</template>
