@@ -8,6 +8,7 @@
 		<file>HomePage.js</file>
 		<file>EditPage.js</file>
 		<file>ThemeEntry.js</file>
+		<file>ThemeEntryRow.js</file>
 		<file>Theme.js</file>
 	</gresource>
 </gresources>

@@ -13,6 +13,8 @@ export const Window = GObject.registerClass(
 		constructor(params = {}) {
 			super(params)
 			this.#setupActions()
+			this.default_width = 800
+			this.default_height = 600
 		}
 
 		vfunc_close_request() {
@@ -27,6 +29,10 @@ export const Window = GObject.registerClass(
 			const beginEditAction = new Gio.SimpleAction({
 				name: "begin-edit",
 				parameterType: GLib.VariantType.new("s"),
+			})
+			const cancelEditAction = new Gio.SimpleAction({
+				name: "cancel-edit",
+				// parameterType: GLib.VariantType.new("s"),
 			})
 
 			changeViewAction.connect("activate", (_action, params) => {
@@ -43,8 +49,15 @@ export const Window = GObject.registerClass(
 				}
 			})
 
+			cancelEditAction.connect("activate", (_action, _) => {
+				const box = this._edit_page._factorybox
+				box.remove(box.get_first_child())
+				changeViewAction.activate(new GLib.Variant("s", "home"))
+			})
+
 			this.add_action(changeViewAction)
 			this.add_action(beginEditAction)
+			this.add_action(cancelEditAction)
 		}
 	},
 )

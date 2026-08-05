@@ -1,82 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-	<template class="GtkListItem">
-		<property name="child">
-			<object class="GtkBox">
-				<property name="orientation">horizontal</property>
-				<property name="spacing">18</property>
-				<child>
-					<object class="GtkImage">
-						<binding name="file">
-							<lookup name="path" type="ThemeEntry">
-								<lookup name="item">GtkListItem</lookup>
-							</lookup>
-						</binding>
-						<property name="pixel-size">200</property>
+	<template class="ThemeEntryRow" parent="GtkBox">
+		<!-- <property name="child"> -->
 
-					</object>
-				</child>
-				<child>
-					<object class="GtkLabel">
-						<!-- <property name="label" bind-source="ThemeEntry"
-						bind-property="file-name" -->
-						<!-- bind-flags="sync-create">Welcome to our new file browser!</property> -->
-
-						<binding name="label">
-							<lookup name="file-name" type="ThemeEntry">
-								<lookup name="item">GtkListItem</lookup>
-							</lookup>
-						</binding>
-						<property name="wrap">true</property>
-						<property name="justify">center</property>
-					</object>
-				</child>
-				<child>
-					<object class="GtkEntry">
-						<property name="buffer">
-							<object class="GtkEntryBuffer">
-								<binding name="text">
-									<lookup name="start" type="ThemeEntry">
-										<lookup name="item">GtkListItem</lookup>
-									</lookup>
-								</binding>
-							</object>
-						</property>
-						<property name="input-purpose">GTK_INPUT_PURPOSE_NUMBER</property>
-						<property name="halign">end</property>
-					</object>
-				</child>
-				<child>
-					<object class="GtkEntry">
-						<property name="buffer">
-							<object class="GtkEntryBuffer">
-								<binding name="text">
-									<lookup name="end" type="ThemeEntry">
-										<lookup name="item">GtkListItem</lookup>
-									</lookup>
-								</binding>
-							</object>
-						</property>
-						<property name="input-purpose">GTK_INPUT_PURPOSE_NUMBER</property>
-						<property name="halign">end</property>
-					</object>
-				</child>
-				<child>
-					<object class="GtkButton" id="delete_button">
-						<!-- <property name="label"></property> -->
-						<!-- <signal name="clicked" handler="onEntryRemoval" /> -->
-						<property name="child">
-							<object class="GtkImage">
-								<property name="icon-name">edit-delete</property>
-								<property name="icon-size">large</property>
-							</object>
-						</property>
-						<!-- <property name="action-name">win.change-view</property> -->
-						<!-- <property name="action-target">'home'</property> -->
-					</object>
-				</child>
+		<!-- <object class="GtkBox"> -->
+		<property name="orientation">horizontal</property>
+		<property name="spacing">18</property>
+		<child>
+			<object class="GtkImage" id="image">
+				<property name="pixel-size">200</property>
 			</object>
-		</property>
+		</child>
+		<child>
+			<object class="GtkLabel" id="name">
+
+				<property name="wrap">true</property>
+				<property name="justify">center</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkEntry">
+				<property name="buffer">
+					<object class="GtkEntryBuffer" id="start">
+					</object>
+				</property>
+				<property name="input-purpose">GTK_INPUT_PURPOSE_NUMBER</property>
+				<property name="halign">end</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkEntry">
+				<property name="buffer">
+					<object class="GtkEntryBuffer" id="end">
+					</object>
+				</property>
+				<property name="input-purpose">GTK_INPUT_PURPOSE_NUMBER</property>
+				<property name="halign">end</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkButton" id="delete_button">
+				<!-- <property name="label"></property> -->
+				<!-- <signal name="clicked" handler="onEntryRemoval" /> -->
+				<property name="child">
+					<object class="GtkImage">
+						<property name="icon-name">edit-delete</property>
+						<property name="icon-size">large</property>
+					</object>
+				</property>
+				<!-- <property name="action-name">win.change-view</property> -->
+				<!-- <property name="action-target">'home'</property> -->
+			</object>
+		</child>
+		<!-- </object> -->
+		<!-- </property> -->
 	</template>
 </interface>
 

@@ -1,13 +1,13 @@
 import GObject from "gi://GObject"
-import Gtk from "gi://Gtk"
+// import Gtk from "gi://Gtk"
 
 export const ThemeEntry = GObject.registerClass(
 	{
-		GTypeName: "ThemeEntry",
-		CssName: "theme_entry",
-		Signals: {
-			"delete-entry": { param_types: [GObject.TYPE_INT] },
-		},
+		// GTypeName: "ThemeEntry",
+		// CssName: "theme_entry",
+		// Signals: {
+		// 	"delete-entry": { param_types: [GObject.TYPE_INT] },
+		// },
 		Properties: {
 			FileName: GObject.ParamSpec.string("file-name", "Path", "The name of the image file", GObject.ParamFlags.READWRITE, ""),
 			Path: GObject.ParamSpec.string("path", "File Name", "The path of the image file", GObject.ParamFlags.READWRITE, ""),
@@ -38,22 +38,7 @@ export const ThemeEntry = GObject.registerClass(
 				Number.MAX_SAFE_INTEGER,
 				0,
 			),
-			// InternalChildren: ["delete_button"],
 		},
 	},
-	class extends Gtk.Widget {
-		// onEditCancel(_button) {
-		// 	this.emit("edit-cancel")
-		// }
-		// onEntryRemoval(_button) {
-		// 	console.log(this.id)
-		// this.emit("delete-entry", this.id)
-		// }
-		// constructor(params = {}) {
-		// super(params)
-		// this._delete_button.connect("clicked", () => {
-		// console.log(this.id)
-		// })
-		// }
-	},
+	class extends GObject.Object { },
 )
