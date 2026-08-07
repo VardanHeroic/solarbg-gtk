@@ -41,7 +41,7 @@
 		<child>
 			<object class="GtkButton" id="delete_button">
 				<!-- <property name="label"></property> -->
-				<!-- <signal name="clicked" handler="onEntryRemoval" /> -->
+				<signal name="clicked" handler="onEntryRemoval" />
 				<property name="child">
 					<object class="GtkImage">
 						<property name="icon-name">edit-delete</property>

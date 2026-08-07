@@ -14,30 +14,17 @@
 				<property name="child">
 					<object class="GtkBox" id="factorybox">
 						<property name="orientation">vertical</property>
-						<!-- <child> -->
-						<!-- 	<object class="GtkListView"> -->
-						<!-- 		<property name="enable-rubberband">true</property> -->
-						<!-- 		<property name="model"> -->
-						<!-- 			<object class="GtkMultiSelection"> -->
-						<!-- 				<property name="model" bind-source="EditPage" -->
-						<!-- 					bind-property="themeentries" /> -->
-						<!-- 			</object> -->
-						<!-- 		</property> -->
-						<!-- 		<property name="factory"> -->
-						<!-- 			<object class="GtkBuilderListItemFactory" id="factory"> -->
-						<!-- 				<property name="resource"> -->
-						<!-- 					/io/github/VardanHeroic/solarbg_gtk/ui/ThemeEntry.ui</property> -->
-						<!-- 			</object> -->
-						<!-- 		</property> -->
-						<!-- 	</object> -->
-						<!---->
-						<!-- </child> -->
+						<child>
+							<object class="GtkButton">
+								<property name="label">Add</property>
+								<signal name="clicked" handler="addEntry" />
+								<!-- <property name="action-name">win.cancel-edit</property> -->
+							</object>
+						</child>
 						<child>
 							<object class="GtkButton">
 								<property name="label">Cancel</property>
-								<!-- <signal name="clicked" handler="onEditCancel" /> -->
 								<property name="action-name">win.cancel-edit</property>
-								<!-- <property name="action-target">'home'</property> -->
 							</object>
 						</child>
 

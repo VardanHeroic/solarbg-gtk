@@ -22,22 +22,11 @@ export const Window = GObject.registerClass(
 			this.run_dispose()
 		}
 		#setupActions() {
-			const changeViewAction = new Gio.SimpleAction({
-				name: "change-view",
-				parameterType: GLib.VariantType.new("s"),
-			})
-			const beginEditAction = new Gio.SimpleAction({
-				name: "begin-edit",
-				parameterType: GLib.VariantType.new("s"),
-			})
-			const cancelEditAction = new Gio.SimpleAction({
-				name: "cancel-edit",
-				// parameterType: GLib.VariantType.new("s"),
-			})
+			const changeViewAction = new Gio.SimpleAction({ name: "change-view", parameterType: GLib.VariantType.new("s") })
+			const beginEditAction = new Gio.SimpleAction({ name: "begin-edit", parameterType: GLib.VariantType.new("s") })
+			const cancelEditAction = new Gio.SimpleAction({ name: "cancel-edit" })
 
-			changeViewAction.connect("activate", (_action, params) => {
-				this._stack.visibleChildName = params.unpack()
-			})
+			changeViewAction.connect("activate", (_action, params) => (this._stack.visibleChildName = params.unpack()))
 
 			beginEditAction.connect("activate", async (_action, params) => {
 				try {
@@ -45,7 +34,6 @@ export const Window = GObject.registerClass(
 					changeViewAction.activate(new GLib.Variant("s", "edit"))
 				} catch (error) {
 					console.warn(error)
-					// return
 				}
 			})
 
