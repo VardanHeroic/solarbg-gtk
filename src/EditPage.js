@@ -39,8 +39,8 @@ export const EditPage = GObject.registerClass(
 				row.id = item.id
 				row.bindings = [
 					item.bind_property("path", row._image, "file", GObject.BindingFlags.SYNC_CREATE), // try GObject.BindingFlags.BIDIRECTIONAL
-					item.bind_property("start", row._start, "text", GObject.BindingFlags.SYNC_CREATE),
-					item.bind_property("end", row._end, "text", GObject.BindingFlags.SYNC_CREATE),
+					item.bind_property("start", row._start, "value", GObject.BindingFlags.SYNC_CREATE | GObject.BindingFlags.BIDIRECTIONAL),
+					item.bind_property("end", row._end, "value", GObject.BindingFlags.SYNC_CREATE | GObject.BindingFlags.BIDIRECTIONAL),
 					item.bind_property("file-name", row._name, "label", GObject.BindingFlags.SYNC_CREATE),
 				]
 				row.signals = [

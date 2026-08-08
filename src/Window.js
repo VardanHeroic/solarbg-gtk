@@ -25,6 +25,7 @@ export const Window = GObject.registerClass(
 			const changeViewAction = new Gio.SimpleAction({ name: "change-view", parameterType: GLib.VariantType.new("s") })
 			const beginEditAction = new Gio.SimpleAction({ name: "begin-edit", parameterType: GLib.VariantType.new("s") })
 			const cancelEditAction = new Gio.SimpleAction({ name: "cancel-edit" })
+			const saveAction = new Gio.SimpleAction({ name: "save" })
 
 			changeViewAction.connect("activate", (_action, params) => (this._stack.visibleChildName = params.unpack()))
 
@@ -43,9 +44,20 @@ export const Window = GObject.registerClass(
 				changeViewAction.activate(new GLib.Variant("s", "home"))
 			})
 
+			saveAction.connect("activate", (_, __) => {
+				const newTheme = []
+				for (let i = 0; i < this._edit_page.themeentries.get_n_items(); i++) {
+					const entry = this._edit_page.themeentries.get_item(i)
+					newTheme.push({ path: entry["file-name"], start: entry.start, end: entry.end })
+				}
+				console.log(newTheme)
+				cancelEditAction.activate()
+			})
+
 			this.add_action(changeViewAction)
 			this.add_action(beginEditAction)
 			this.add_action(cancelEditAction)
+			this.add_action(saveAction)
 		}
 	},
 )

@@ -19,23 +19,29 @@
 			</object>
 		</child>
 		<child>
-			<object class="GtkEntry">
-				<property name="buffer">
-					<object class="GtkEntryBuffer" id="start">
+			<object class="GtkSpinButton">
+				<property name="halign">end</property>
+				<property name="adjustment">
+					<object class="GtkAdjustment" id="start">
+						<property name="upper">90</property>
+						<property name="lower">-90</property>
+						<property name="step-increment">1</property>
+						<property name="page-increment">10</property>
 					</object>
 				</property>
-				<property name="input-purpose">GTK_INPUT_PURPOSE_NUMBER</property>
-				<property name="halign">end</property>
 			</object>
 		</child>
 		<child>
-			<object class="GtkEntry">
-				<property name="buffer">
-					<object class="GtkEntryBuffer" id="end">
+			<object class="GtkSpinButton">
+				<property name="halign">end</property>
+				<property name="adjustment">
+					<object class="GtkAdjustment" id="end">
+						<property name="upper">90</property>
+						<property name="lower">-90</property>
+						<property name="step-increment">1</property>
+						<property name="page-increment">10</property>
 					</object>
 				</property>
-				<property name="input-purpose">GTK_INPUT_PURPOSE_NUMBER</property>
-				<property name="halign">end</property>
 			</object>
 		</child>
 		<child>
