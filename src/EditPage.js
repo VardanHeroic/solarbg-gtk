@@ -12,7 +12,7 @@ export const EditPage = GObject.registerClass(
 		CssName: "edit_page",
 		Template: "resource:///io/github/VardanHeroic/solarbg_gtk/ui/EditPage.ui",
 		Properties: {
-			// ThemePath: GObject.ParamSpec.string("themepath", "ThemePath", "The path of editing theme", GObject.ParamFlags.READWRITE, ""),
+			ThemePath: GObject.ParamSpec.string("themepath", "ThemePath", "The path of editing theme", GObject.ParamFlags.READWRITE, ""),
 			ThemeEntries: GObject.ParamSpec.object(
 				"themeentries",
 				"ThemeEntriess",
@@ -104,11 +104,11 @@ export const EditPage = GObject.registerClass(
 			)
 		}
 
-		async createEntryList(path) {
+		async createEntryList() {
 			this.themeentries = new Gio.ListStore({ item_type: ThemeEntry })
-			const themeJSONfile = Gio.File.new_for_path(path)
+			const themeJSONfile = Gio.File.new_for_path(this.themepath)
 			const decoder = new TextDecoder("utf-8")
-			let themePath = path.split("/")
+			let themePath = this.themepath.split("/")
 			themePath.pop()
 			themePath = themePath.join("/")
 
@@ -134,7 +134,7 @@ export const EditPage = GObject.registerClass(
 				const listView = new Gtk.ListView({ model: selectionModel, factory: this.factory, enable_rubberband: true })
 				this._factorybox.prepend(listView)
 			} catch (error) {
-				console.warn(`(tried to read ${path}) ${error}`)
+				console.warn(`(tried to read ${this.themepath}) ${error}`)
 				throw error
 			}
 		}

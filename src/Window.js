@@ -31,7 +31,8 @@ export const Window = GObject.registerClass(
 
 			beginEditAction.connect("activate", async (_action, params) => {
 				try {
-					await this._edit_page.createEntryList(params.unpack())
+					this._edit_page.themepath = params.unpack()
+					await this._edit_page.createEntryList()
 					changeViewAction.activate(new GLib.Variant("s", "edit"))
 				} catch (error) {
 					console.warn(error)
@@ -44,14 +45,50 @@ export const Window = GObject.registerClass(
 				changeViewAction.activate(new GLib.Variant("s", "home"))
 			})
 
-			saveAction.connect("activate", (_, __) => {
-				const newTheme = []
-				for (let i = 0; i < this._edit_page.themeentries.get_n_items(); i++) {
-					const entry = this._edit_page.themeentries.get_item(i)
-					newTheme.push({ path: entry["file-name"], start: entry.start, end: entry.end })
+			saveAction.connect("activate", async (_, __) => {
+				let themePath = this._edit_page.themepath.split("/")
+				themePath.pop()
+				themePath = themePath.join("/")
+				const themeFolder = Gio.File.new_for_path(themePath)
+
+				try {
+					await themeFolder.make_directory_async(GLib.PRIORITY_DEFAULT, null)
+				} catch (e) {
+					console.warn(e)
 				}
-				console.log(newTheme)
-				cancelEditAction.activate()
+
+				try {
+					const themeFile = Gio.File.new_for_path(this._edit_page.themepath)
+					const newTheme = []
+
+					for (let i = 0; i < this._edit_page.themeentries.get_n_items(); i++) {
+						const entry = this._edit_page.themeentries.get_item(i)
+						newTheme.push({ path: entry["file-name"], start: entry.start, end: entry.end })
+						await Gio.File.new_for_path(entry.path).copy_async(
+							Gio.File.new_for_path(themePath + "/" + entry["file-name"]),
+							Gio.FileCopyFlags.OVERWRITE,
+							GLib.PRIORITY_DEFAULT,
+							null,
+							(nWritten, nTotal) => {
+								const percent = Math.floor(100 * (nWritten / nTotal))
+								console.debug(`Progress: ${percent}%`)
+							},
+						)
+					}
+
+					const bytes = new GLib.Bytes(JSON.stringify(newTheme))
+					const [_etag] = await themeFile.replace_contents_bytes_async(
+						bytes,
+						null,
+						false,
+						Gio.FileCreateFlags.REPLACE_DESTINATION,
+						null,
+					)
+
+					cancelEditAction.activate(null)
+				} catch (error) {
+					console.error(error)
+				}
 			})
 
 			this.add_action(changeViewAction)
