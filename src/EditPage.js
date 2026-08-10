@@ -65,7 +65,7 @@ export const EditPage = GObject.registerClass(
 				for (const signal of row.signals ?? []) {
 					row.disconnect(signal)
 				}
-				row.bindings = []
+				row.signals = []
 			})
 		}
 
@@ -113,25 +113,33 @@ export const EditPage = GObject.registerClass(
 			themePath = themePath.join("/")
 
 			try {
-				const [contents, __] = await themeJSONfile.load_contents_async(null) // console.log(contents)
-				const themeArray = JSON.parse(decoder.decode(contents))
-				if (!themeArray.every(isTimeStamp)) {
-					throw new Error("file is not a solar theme")
+				if (themeJSONfile.query_exists(null)) {
+					const [contents, __] = await themeJSONfile.load_contents_async(null) // console.log(contents)
+					const themeArray = JSON.parse(decoder.decode(contents))
+					if (!themeArray.every(isTimeStamp)) {
+						throw new Error("file is not a solar theme")
+					}
+					themeArray.forEach(({ path, start, end }) => {
+						this.themeentries.append(
+							new ThemeEntry({
+								path: themePath + "/" + path,
+								"file-name": path,
+								start: start,
+								end: end,
+								id: GLib.uuid_string_random(),
+							}),
+						)
+					})
 				}
-				themeArray.forEach(({ path, start, end }) => {
-					this.themeentries.append(
-						new ThemeEntry({
-							path: themePath + "/" + path,
-							"file-name": path,
-							start: start,
-							end: end,
-							id: GLib.uuid_string_random(),
-						}),
-					)
-				})
 
 				const selectionModel = new Gtk.MultiSelection({ model: this.themeentries })
-				const listView = new Gtk.ListView({ model: selectionModel, factory: this.factory, enable_rubberband: true })
+				const listView = new Gtk.ListView({
+					model: selectionModel,
+					factory: this.factory,
+					enable_rubberband: true,
+					hexpand: true,
+					vexpand: true,
+				})
 				this._factorybox.prepend(listView)
 			} catch (error) {
 				console.warn(`(tried to read ${this.themepath}) ${error}`)

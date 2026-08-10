@@ -26,6 +26,7 @@ export const Window = GObject.registerClass(
 			const beginEditAction = new Gio.SimpleAction({ name: "begin-edit", parameterType: GLib.VariantType.new("s") })
 			const cancelEditAction = new Gio.SimpleAction({ name: "cancel-edit" })
 			const saveAction = new Gio.SimpleAction({ name: "save" })
+			const addThemeAction = new Gio.SimpleAction({ name: "add-theme" })
 
 			changeViewAction.connect("activate", (_action, params) => (this._stack.visibleChildName = params.unpack()))
 
@@ -43,6 +44,21 @@ export const Window = GObject.registerClass(
 				const box = this._edit_page._factorybox
 				box.remove(box.get_first_child())
 				changeViewAction.activate(new GLib.Variant("s", "home"))
+			})
+
+			addThemeAction.connect("activate", async (_, __) => {
+				try {
+					this._edit_page.themepath = GLib.build_filenamev([
+						GLib.get_home_dir(),
+						"/.local/share/solarbg/themes",
+						"newTheme",
+						"theme.json",
+					])
+					await this._edit_page.createEntryList()
+					changeViewAction.activate(new GLib.Variant("s", "edit"))
+				} catch (error) {
+					console.warn(error)
+				}
 			})
 
 			saveAction.connect("activate", async (_, __) => {
@@ -95,6 +111,7 @@ export const Window = GObject.registerClass(
 			this.add_action(beginEditAction)
 			this.add_action(cancelEditAction)
 			this.add_action(saveAction)
+			this.add_action(addThemeAction)
 		}
 	},
 )

@@ -26,6 +26,18 @@ export const HomePage = GObject.registerClass(
 		async initialize() {
 			await this.findThemes()
 		}
+		//
+		// addTheme() {
+		// 	const path = GLib.build_filenamev([GLib.get_home_dir(), "/.local/share/solarbg/themes/newTheme"])
+		// 	this.themes.append(
+		// 		new Theme({
+		// 			"theme-path": new GLib.Variant("s", path),
+		// 			"theme-name": "newTheme",
+		// 			"theme-solar": true,
+		// 			"theme-thumbnail": null,
+		// 		}),
+		// 	)
+		// }
 
 		async findThemes() {
 			// Create the Gio.ListStore that will contain File objects

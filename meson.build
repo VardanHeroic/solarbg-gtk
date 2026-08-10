@@ -1,7 +1,7 @@
 # Define our project
 project(
 	'solarbg',
-	version: '0.0.1',
+	version: '0.9.0',
 	license: ['GPL-3.0-only'],
 	meson_version: '>= 0.59.0'
 )

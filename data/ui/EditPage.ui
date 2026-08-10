@@ -11,6 +11,9 @@
 		<child>
 			<object class="GtkScrolledWindow">
 				<property name="vexpand">true</property>
+				<property name="hexpand">true</property>
+				<!-- hscrollbar_policy> Gtk.PolicyType.NEVER, -->
+				<!-- vscrollbar_policy: Gtk.PolicyType.AUTOMATIC, -->
 				<property name="child">
 					<object class="GtkBox" id="factorybox">
 						<property name="orientation">vertical</property>
