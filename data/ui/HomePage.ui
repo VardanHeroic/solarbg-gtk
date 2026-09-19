@@ -34,7 +34,8 @@
 							<object class="GtkButton">
 								<property name="label">Add</property>
 								<!-- <signal name="clicked" handler="addTheme" /> -->
-								<property name="action-name">win.add-theme</property>
+								<property name="action-name">win.set-name</property>
+								<property name="action-target">true</property>
 							</object>
 						</child>
 					</object>

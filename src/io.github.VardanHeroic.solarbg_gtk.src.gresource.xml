@@ -10,6 +10,7 @@
 		<file>ThemeEntry.js</file>
 		<file>ThemeEntryRow.js</file>
 		<file>Theme.js</file>
+		<file>Modal.js</file>
 	</gresource>
 </gresources>
 

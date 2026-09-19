@@ -2,12 +2,13 @@ import GObject from "gi://GObject"
 import Gtk from "gi://Gtk"
 import Gio from "gi://Gio"
 import GLib from "gi://GLib"
+import { Modal } from "./Modal.js"
 
 export const Window = GObject.registerClass(
 	{
 		GTypeName: "SolarbgWindow",
 		Template: "resource:///io/github/VardanHeroic/solarbg_gtk/ui/Window.ui",
-		InternalChildren: ["stack", "edit_page"],
+		InternalChildren: ["stack", "edit_page", "home_page"],
 	},
 	class extends Gtk.ApplicationWindow {
 		constructor(params = {}) {
@@ -27,6 +28,8 @@ export const Window = GObject.registerClass(
 			const cancelEditAction = new Gio.SimpleAction({ name: "cancel-edit" })
 			const saveAction = new Gio.SimpleAction({ name: "save" })
 			const addThemeAction = new Gio.SimpleAction({ name: "add-theme" })
+			const setNameAction = new Gio.SimpleAction({ name: "set-name", parameterType: GLib.VariantType.new("b") })
+			// let newName
 
 			changeViewAction.connect("activate", (_action, params) => (this._stack.visibleChildName = params.unpack()))
 
@@ -44,6 +47,18 @@ export const Window = GObject.registerClass(
 				const box = this._edit_page._factorybox
 				box.remove(box.get_first_child())
 				changeViewAction.activate(new GLib.Variant("s", "home"))
+			})
+
+			setNameAction.connect("activate", async (_action, params) => {
+				const modal = new Modal()
+				modal.set_transient_for(this)
+				modal.present()
+				setTimeout(() => {
+					modal.close()
+					if (params.unpack()) {
+						console.log("yay")
+					}
+				}, 5000)
 			})
 
 			addThemeAction.connect("activate", async (_, __) => {
@@ -102,6 +117,7 @@ export const Window = GObject.registerClass(
 					)
 
 					cancelEditAction.activate(null)
+					await this._home_page.findThemes()
 				} catch (error) {
 					console.error(error)
 				}
@@ -112,6 +128,7 @@ export const Window = GObject.registerClass(
 			this.add_action(cancelEditAction)
 			this.add_action(saveAction)
 			this.add_action(addThemeAction)
+			this.add_action(setNameAction)
 		}
 	},
 )

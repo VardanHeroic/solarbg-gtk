@@ -6,6 +6,7 @@
 		<file>ui/HomePage.ui</file>
 		<file>ui/EditPage.ui</file>
 		<file>ui/Theme.ui</file>
+		<file>ui/Modal.ui</file>
 		<file>css/style.css</file>
 	</gresource>
 </gresources>
