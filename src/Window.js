@@ -27,8 +27,8 @@ export const Window = GObject.registerClass(
 			const beginEditAction = new Gio.SimpleAction({ name: "begin-edit", parameterType: GLib.VariantType.new("s") })
 			const cancelEditAction = new Gio.SimpleAction({ name: "cancel-edit" })
 			const saveAction = new Gio.SimpleAction({ name: "save" })
-			const addThemeAction = new Gio.SimpleAction({ name: "add-theme" })
-			const setNameAction = new Gio.SimpleAction({ name: "set-name", parameterType: GLib.VariantType.new("b") })
+			const addThemeAction = new Gio.SimpleAction({ name: "add-theme", parameterType: GLib.VariantType.new("s") })
+			const setNameAction = new Gio.SimpleAction({ name: "set-name", parameterType: GLib.VariantType.new("s") })
 			// let newName
 
 			changeViewAction.connect("activate", (_action, params) => (this._stack.visibleChildName = params.unpack()))
@@ -49,24 +49,37 @@ export const Window = GObject.registerClass(
 				changeViewAction.activate(new GLib.Variant("s", "home"))
 			})
 
-			setNameAction.connect("activate", async (_action, params) => {
+			setNameAction.connect("activate", (_action, params) => {
 				const modal = new Modal()
 				modal.set_transient_for(this)
 				modal.present()
-				setTimeout(() => {
+				modal.connect("confirm-name", async (_, newName) => {
 					modal.close()
 					if (params.unpack()) {
-						console.log("yay")
+						const themeFolder = Gio.File.new_for_path(
+							GLib.build_filenamev([GLib.get_home_dir(), "/.local/share/solarbg/themes", params.unpack().split("/").at(-2)]),
+						)
+						const newThemeFolder = Gio.File.new_for_path(
+							GLib.build_filenamev([GLib.get_home_dir(), "/.local/share/solarbg/themes", newName]),
+						)
+						try {
+							await themeFolder.move_async(newThemeFolder, Gio.FileCopyFlags.NONE, GLib.PRIORITY_DEFAULT, null, null)
+							await this._home_page.findThemes()
+						} catch (error) {
+							console.error(error)
+						}
+						return
 					}
-				}, 5000)
+					addThemeAction.activate(GLib.Variant.new_string(newName))
+				})
 			})
 
-			addThemeAction.connect("activate", async (_, __) => {
+			addThemeAction.connect("activate", async (_, params) => {
 				try {
 					this._edit_page.themepath = GLib.build_filenamev([
 						GLib.get_home_dir(),
 						"/.local/share/solarbg/themes",
-						"newTheme",
+						params.unpack(),
 						"theme.json",
 					])
 					await this._edit_page.createEntryList()

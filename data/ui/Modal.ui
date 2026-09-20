@@ -8,6 +8,31 @@
 						<property name="label">Set Name</property>
 					</object>
 				</child>
+				<child>
+					<object class="GtkEntry">
+						<property name="buffer">
+							<object class="GtkEntryBuffer" id="buffer"></object>
+						</property>
+						<!-- <attributes> -->
+						<!-- 	<attribute name="weight" value="PANGO_WEIGHT_BOLD" /> -->
+						<!-- 	<attribute name="background" value="red" start="5" end="10" /> -->
+						<!-- </attributes> -->
+					</object>
+				</child>
+				<child>
+					<object class="GtkButton" id="delete_button">
+						<property name="label">Confirm</property>
+						<signal name="clicked" handler="onNameConfirm" />
+						<!-- <property name="child"> -->
+						<!-- 	<object class="GtkImage"> -->
+						<!-- 		<property name="icon-name">edit-delete</property> -->
+						<!-- 		<property name="icon-size">large</property> -->
+						<!-- 	</object> -->
+						<!-- </property> -->
+						<!-- <property name="action-name">win.change-view</property> -->
+						<!-- <property name="action-target">'home'</property> -->
+					</object>
+				</child>
 			</object>
 		</property>
 	</template>

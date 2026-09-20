@@ -35,7 +35,7 @@
 								<property name="label">Add</property>
 								<!-- <signal name="clicked" handler="addTheme" /> -->
 								<property name="action-name">win.set-name</property>
-								<property name="action-target">true</property>
+								<property name="action-target">""</property>
 							</object>
 						</child>
 					</object>
