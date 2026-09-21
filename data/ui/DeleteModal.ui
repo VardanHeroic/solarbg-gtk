@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+	<template class="DeleteModal">
+		<property name="child">
+			<object class="GtkBox">
+				<child>
+					<object class="GtkLabel">
+						<property name="label">Are you sure?</property>
+					</object>
+				</child>
+				<!-- <child> -->
+				<!-- 	<object class="GtkEntry"> -->
+				<!-- 		<property name="buffer"> -->
+				<!-- 			<object class="GtkEntryBuffer" id="buffer"></object> -->
+				<!-- 		</property> -->
+				<!-- 	</object> -->
+				<!-- </child> -->
+				<child>
+					<object class="GtkButton">
+						<property name="label">Delete</property>
+						<signal name="clicked" handler="onDeleteConfirm" />
+					</object>
+				</child>
+				<child>
+					<object class="GtkButton">
+						<property name="label">Cancel</property>
+						<signal name="clicked" handler="onCancel" />
+					</object>
+				</child>
+			</object>
+		</property>
+	</template>
+</interface>
+

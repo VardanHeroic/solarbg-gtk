@@ -2,7 +2,9 @@ import GObject from "gi://GObject"
 import Gtk from "gi://Gtk"
 import Gio from "gi://Gio"
 import GLib from "gi://GLib"
-import { Modal } from "./Modal.js"
+import { InputModal } from "./InputModal.js"
+import { DeleteModal } from "./DeleteModal.js"
+import { Theme } from "./Theme.js"
 
 export const Window = GObject.registerClass(
 	{
@@ -29,6 +31,7 @@ export const Window = GObject.registerClass(
 			const saveAction = new Gio.SimpleAction({ name: "save" })
 			const addThemeAction = new Gio.SimpleAction({ name: "add-theme", parameterType: GLib.VariantType.new("s") })
 			const setNameAction = new Gio.SimpleAction({ name: "set-name", parameterType: GLib.VariantType.new("s") })
+			const deleteThemeAction = new Gio.SimpleAction({ name: "delete-theme", parameterType: GLib.VariantType.new("s") })
 			// let newName
 
 			changeViewAction.connect("activate", (_action, params) => (this._stack.visibleChildName = params.unpack()))
@@ -49,8 +52,43 @@ export const Window = GObject.registerClass(
 				changeViewAction.activate(new GLib.Variant("s", "home"))
 			})
 
+			deleteThemeAction.connect("activate", (_action, params) => {
+				const modal = new DeleteModal()
+				modal.set_transient_for(this)
+				modal.present()
+				modal.connect("confirm-delete", async (_, __) => {
+					modal.close()
+					let themeFolderPath = params.unpack().split("/")
+					let fileInfo
+					themeFolderPath.pop()
+					themeFolderPath = themeFolderPath.join("/")
+
+					const themeFolder = Gio.File.new_for_path(themeFolderPath)
+					const children = themeFolder.enumerate_children("standard::*", Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null)
+					while ((fileInfo = children.next_file(null))) {
+						try {
+							const file = themeFolder.get_child(fileInfo.get_name())
+							await file.delete_async(GLib.PRIORITY_DEFAULT, null)
+						} catch (error) {
+							console.error(error)
+						}
+					}
+					try {
+						await themeFolder.delete_async(GLib.PRIORITY_DEFAULT, null)
+					} catch (error) {
+						console.error(error)
+					}
+				})
+				for (let i = 0; i < this._home_page.themes.get_n_items(); i++) {
+					const item = this._home_page.themes.get_item(i)
+					if (item["theme-path"] === params.unpack()) {
+						this._home_page.themes.remove(i)
+					}
+				}
+			})
+
 			setNameAction.connect("activate", (_action, params) => {
-				const modal = new Modal()
+				const modal = new InputModal()
 				modal.set_transient_for(this)
 				modal.present()
 				modal.connect("confirm-name", async (_, newName) => {
@@ -65,6 +103,29 @@ export const Window = GObject.registerClass(
 						try {
 							await themeFolder.move_async(newThemeFolder, Gio.FileCopyFlags.NONE, GLib.PRIORITY_DEFAULT, null, null)
 							await this._home_page.findThemes()
+
+							// for (let i = 0; i < this._home_page.themes.get_n_items(); i++) {
+							// 	const item = this._home_page.themes.get_item(i)
+							// 	if (item["theme-path"] === params.unpack()) {
+							// 		this._home_page.themes.remove(i)
+							// 		this._home_page.themes.insert(
+							// 			i,
+							// 			new Theme({
+							// 				"theme-path": GLib.build_filenamev([
+							// 					GLib.get_home_dir(),
+							// 					"/.local/share/solarbg/themes",
+							// 					newName,
+							// 					"theme.json",
+							// 				]),
+							// 				"theme-name": params.unpack().split("/").at(-2),
+							// 				"theme-solar": item["theme-solar"],
+							// 				"theme-thumbnail": item["theme-thumbnail"],
+							// 			}),
+							// 		)
+							//
+							// 		break
+							// 	}
+							// }
 						} catch (error) {
 							console.error(error)
 						}
@@ -142,6 +203,7 @@ export const Window = GObject.registerClass(
 			this.add_action(saveAction)
 			this.add_action(addThemeAction)
 			this.add_action(setNameAction)
+			this.add_action(deleteThemeAction)
 		}
 	},
 )

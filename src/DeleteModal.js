@@ -3,19 +3,20 @@ import Gtk from "gi://Gtk"
 // import Gio from "gi://Gio"
 // import GLib from "gi://GLib"
 
-export const Modal = GObject.registerClass(
+export const DeleteModal = GObject.registerClass(
 	{
-		GTypeName: "Modal",
-		Template: "resource:///io/github/VardanHeroic/solarbg_gtk/ui/Modal.ui",
-		InternalChildren: ["buffer"],
+		GTypeName: "DeleteModal",
+		Template: "resource:///io/github/VardanHeroic/solarbg_gtk/ui/DeleteModal.ui",
+		// InternalChildren: ["buffer"],
 		Signals: {
-			"confirm-name": { param_types: [GObject.TYPE_STRING] },
+			"confirm-delete": {},
+			// cancel: {},
 		},
 		// Properties: {
 		// 	NewName: GObject.ParamSpec.string("newname", "NewName", "Entered new name", GObject.ParamFlags.READWRITE, ""),
 		// },
 	},
-	class extends Gtk.ApplicationWindow {
+	class extends Gtk.Dialog {
 		constructor(params = {}) {
 			super(params)
 			this.modal = true
@@ -23,10 +24,12 @@ export const Modal = GObject.registerClass(
 			this.default_height = 200
 		}
 
-		onNameConfirm() {
-			// this.newname = this._buffer.text
-			// console.log(this.newname)
-			this.emit("confirm-name", this._buffer.text)
+		onDeleteConfirm() {
+			this.emit("confirm-delete")
+		}
+
+		onCancel() {
+			this.close()
 		}
 	},
 )
