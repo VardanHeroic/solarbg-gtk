@@ -11,25 +11,25 @@
 		<child>
 			<object class="GtkScrolledWindow">
 				<property name="child">
-					<object class="GtkBox">
+					<object class="GtkBox" id="factorybox">
 						<property name="orientation">vertical</property>
-						<child>
-							<object class="GtkGridView">
-								<property name="enable-rubberband">true</property>
-								<property name="model">
-									<object class="GtkMultiSelection">
-										<property name="model" bind-source="HomePage"
-											bind-property="themes" />
-									</object>
-								</property>
-								<property name="factory">
-									<object class="GtkBuilderListItemFactory">
-										<property name="resource">/io/github/VardanHeroic/solarbg_gtk/ui/Theme.ui</property>
-									</object>
-								</property>
-							</object>
-
-						</child>
+						<!-- <child> -->
+						<!-- 	<object class="GtkGridView"> -->
+						<!-- 		<property name="enable-rubberband">true</property> -->
+						<!-- 		<property name="model"> -->
+						<!-- 			<object class="GtkMultiSelection"> -->
+						<!-- 				<property name="model" bind-source="HomePage" bind-property="themes" /> -->
+						<!-- 			</object> -->
+						<!-- 		</property> -->
+						<!-- 		<property name="factory"> -->
+						<!-- 			<object class="GtkBuilderListItemFactory"> -->
+						<!-- 				<property
+						name="resource">/io/github/VardanHeroic/solarbg_gtk/ui/Theme.ui</property> -->
+						<!-- 			</object> -->
+						<!-- 		</property> -->
+						<!-- 	</object> -->
+						<!---->
+						<!-- </child> -->
 						<child>
 							<object class="GtkButton">
 								<property name="label">Add</property>

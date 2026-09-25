@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-	<template class="GtkListItem">
-		<property name="child">
-			<object class="GtkBox">
-				<property name="orientation">vertical</property>
-				<property name="spacing">18</property>
-				<child>
-					<object class="GtkImage">
-						<binding name="file">
-							<lookup name="theme-thumbnail" type="Theme">
-								<lookup name="item">GtkListItem</lookup>
-							</lookup>
-						</binding>
-						<property name="pixel-size">200</property>
-					</object>
-				</child>
-				<child>
-					<object class="GtkLabel">
-						<binding name="label">
-							<lookup name="theme-name" type="Theme">
-								<lookup name="item">GtkListItem</lookup>
-							</lookup>
-						</binding>
-					</object>
-				</child>
-				<child>
-					<object class="GtkButton">
-						<property name="action-name">win.begin-edit</property>
-						<binding name="action-target">
-							<lookup name="theme-path" type="Theme">
-								<lookup name="item">GtkListItem</lookup>
-							</lookup>
-						</binding>
-						<property name="label">Edit</property>
-					</object>
-				</child>
-				<child>
-					<object class="GtkButton">
-						<property name="action-name">win.set-name</property>
-						<binding name="action-target">
-							<lookup name="theme-path" type="Theme">
-								<lookup name="item">GtkListItem</lookup>
-							</lookup>
-						</binding>
-						<property name="label">Rename</property>
-					</object>
-				</child>
-				<child>
-					<object class="GtkButton">
-						<property name="action-name">win.delete-theme</property>
-						<binding name="action-target">
-							<lookup name="theme-path" type="Theme">
-								<lookup name="item">GtkListItem</lookup>
-							</lookup>
-						</binding>
-						<property name="label">Delete</property>
-					</object>
-				</child>
+	<template class="ThemeRow">
+		<!-- <property name="child"> -->
+		<!-- <object class="GtkBox"> -->
+		<property name="orientation">vertical</property>
+		<property name="spacing">18</property>
+		<child>
+			<object class="GtkImage" id="thumbnail">
+				<!-- <binding name="file"> -->
+				<!-- 	<lookup name="theme-thumbnail" type="Theme"> -->
+				<!-- 		<lookup name="item">GtkListItem</lookup> -->
+				<!-- 	</lookup> -->
+				<!-- </binding> -->
+				<property name="pixel-size">200</property>
 			</object>
-		</property>
+		</child>
+		<child>
+			<object class="GtkLabel" id="name">
+				<!-- <binding name="label"> -->
+				<!-- 	<lookup name="theme-name" type="Theme"> -->
+				<!-- 		<lookup name="item">GtkListItem</lookup> -->
+				<!-- 	</lookup> -->
+				<!-- </binding> -->
+			</object>
+		</child>
+		<child>
+			<object class="GtkButton" id="editbutton">
+				<property name="action-name">win.begin-edit</property>
+				<!-- <binding name="action-target"> -->
+				<!-- 	<lookup name="theme-path" type="Theme"> -->
+				<!-- 		<lookup name="item">GtkListItem</lookup> -->
+				<!-- 	</lookup> -->
+				<!-- </binding> -->
+				<property name="label">Edit</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkButton" id="renamebutton">
+				<property name="action-name">win.set-name</property>
+				<!-- <binding name="action-target"> -->
+				<!-- 	<lookup name="theme-path" type="Theme"> -->
+				<!-- 		<lookup name="item">GtkListItem</lookup> -->
+				<!-- 	</lookup> -->
+				<!-- </binding> -->
+				<property name="label">Rename</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkButton" id="deletebutton">
+				<property name="action-name">win.delete-theme</property>
+				<!-- <binding name="action-target"> -->
+				<!-- 	<lookup name="theme-path" type="Theme"> -->
+				<!-- 		<lookup name="item">GtkListItem</lookup> -->
+				<!-- 	</lookup> -->
+				<!-- </binding> -->
+				<property name="label">Delete</property>
+			</object>
+		</child>
+		<!-- </object> -->
+		<!-- </property> -->
 	</template>
 </interface>

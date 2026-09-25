@@ -4,8 +4,6 @@ import GLib from "gi://GLib"
 
 export const Theme = GObject.registerClass(
 	{
-		GTypeName: "Theme",
-		CssName: "theme",
 		// Template: "resource:///io/github/VardanHeroic/solarbg_gtk/ui/Theme.ui",
 		Properties: {
 			ThemePath: GObject.param_spec_variant(
@@ -25,6 +23,7 @@ export const Theme = GObject.registerClass(
 				GObject.ParamFlags.READWRITE,
 				"",
 			),
+			ID: GObject.ParamSpec.string("id", "ID", "UUID of theme", GObject.ParamFlags.READWRITE, ""),
 		},
 	},
 	class extends Gtk.Widget { },
