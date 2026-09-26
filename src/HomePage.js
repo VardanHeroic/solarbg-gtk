@@ -34,6 +34,9 @@ export const HomePage = GObject.registerClass(
 				const row = listItem.child
 				const item = listItem.item
 				row.id = item.id
+				// row._editbutton["action-target"] = item["theme-path"]
+				// row._deletebutton["action-target"] = item["theme-path"]
+				// row._renamebutton["action-target"] = item["theme-path"]
 				// console.log(item["theme-name"])
 				row.bindings = [
 					item.bind_property("theme-thumbnail", row._thumbnail, "file", GObject.BindingFlags.SYNC_CREATE), // try GObject.BindingFlags.BIDIRECTIONAL
@@ -128,15 +131,6 @@ export const HomePage = GObject.registerClass(
 							id: GLib.uuid_string_random(),
 						}),
 					)
-					const selectionModel = new Gtk.MultiSelection({ model: this.themes })
-					const gridView = new Gtk.GridView({
-						model: selectionModel,
-						factory: this.factory,
-						enable_rubberband: true,
-						hexpand: true,
-						vexpand: true,
-					})
-					this._factorybox.prepend(gridView)
 
 					// break
 					// case "application/xml":
@@ -144,6 +138,16 @@ export const HomePage = GObject.registerClass(
 					// continue
 				}
 			}
+			const selectionModel = new Gtk.MultiSelection({ model: this.themes })
+			const gridView = new Gtk.GridView({
+				model: selectionModel,
+				factory: this.factory,
+				enable_rubberband: true,
+				max_columns: this.themes.get_n_items(),
+				// hexpand: true,
+				// vexpand: true,
+			})
+			this._factorybox.prepend(gridView)
 		}
 	},
 )
