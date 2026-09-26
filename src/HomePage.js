@@ -12,6 +12,7 @@ export const HomePage = GObject.registerClass(
 		// Signals: {
 		// 	"edit-cancel": {},
 		// },
+		InternalChildren: ["grid"],
 		Template: "resource:///io/github/VardanHeroic/solarbg_gtk/ui/HomePage.ui",
 		Properties: {
 			Themes: GObject.ParamSpec.object("themes", "Themes", "List of theme JSONs", GObject.ParamFlags.READWRITE, Gio.ListStore),
@@ -89,6 +90,7 @@ export const HomePage = GObject.registerClass(
 					// continue
 				}
 			}
+			this._grid.max_columns = this.themes.get_n_items()
 		}
 	},
 )

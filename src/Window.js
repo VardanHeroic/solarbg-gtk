@@ -75,16 +75,16 @@ export const Window = GObject.registerClass(
 					}
 					try {
 						await themeFolder.delete_async(GLib.PRIORITY_DEFAULT, null)
+						for (let i = 0; i < this._home_page.themes.get_n_items(); i++) {
+							const item = this._home_page.themes.get_item(i)
+							if (item["theme-path"].get_string()[0] === params.unpack()) {
+								this._home_page.themes.remove(i)
+							}
+						}
 					} catch (error) {
 						console.error(error)
 					}
 				})
-				for (let i = 0; i < this._home_page.themes.get_n_items(); i++) {
-					const item = this._home_page.themes.get_item(i)
-					if (item["theme-path"] === params.unpack()) {
-						this._home_page.themes.remove(i)
-					}
-				}
 			})
 
 			setNameAction.connect("activate", (_action, params) => {
@@ -102,30 +102,39 @@ export const Window = GObject.registerClass(
 						)
 						try {
 							await themeFolder.move_async(newThemeFolder, Gio.FileCopyFlags.NONE, GLib.PRIORITY_DEFAULT, null, null)
-							await this._home_page.findThemes()
+							// await this._home_page.findThemes()
 
-							// for (let i = 0; i < this._home_page.themes.get_n_items(); i++) {
-							// 	const item = this._home_page.themes.get_item(i)
-							// 	if (item["theme-path"] === params.unpack()) {
-							// 		this._home_page.themes.remove(i)
-							// 		this._home_page.themes.insert(
-							// 			i,
-							// 			new Theme({
-							// 				"theme-path": GLib.build_filenamev([
-							// 					GLib.get_home_dir(),
-							// 					"/.local/share/solarbg/themes",
-							// 					newName,
-							// 					"theme.json",
-							// 				]),
-							// 				"theme-name": params.unpack().split("/").at(-2),
-							// 				"theme-solar": item["theme-solar"],
-							// 				"theme-thumbnail": item["theme-thumbnail"],
-							// 			}),
-							// 		)
-							//
-							// 		break
-							// 	}
-							// }
+							for (let i = 0; i < this._home_page.themes.get_n_items(); i++) {
+								const item = this._home_page.themes.get_item(i)
+								if (item["theme-path"].get_string()[0] === params.unpack()) {
+									// item["theme-path"] = new GLib.Variant("s", newName)
+									this._home_page.themes.remove(i)
+									this._home_page.themes.insert(
+										i,
+										new Theme({
+											"theme-path": new GLib.Variant(
+												"s",
+												GLib.build_filenamev([
+													GLib.get_home_dir(),
+													"/.local/share/solarbg/themes",
+													newName,
+													"theme.json",
+												]),
+											),
+											"theme-name": newName,
+											"theme-solar": item["theme-solar"],
+											"theme-thumbnail": GLib.build_filenamev([
+												GLib.get_home_dir(),
+												"/.local/share/solarbg/themes",
+												newName,
+												item["theme-thumbnail"].split("/").pop(),
+											]),
+										}),
+									)
+
+									break
+								}
+							}
 						} catch (error) {
 							console.error(error)
 						}

@@ -14,7 +14,7 @@
 					<object class="GtkBox">
 						<property name="orientation">vertical</property>
 						<child>
-							<object class="GtkGridView">
+							<object class="GtkGridView" id="grid">
 								<property name="enable-rubberband">true</property>
 								<property name="model">
 									<object class="GtkMultiSelection">
